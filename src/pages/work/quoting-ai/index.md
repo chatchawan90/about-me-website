@@ -10,11 +10,11 @@ A customer emails us asking for a few laboratory products. It sounds like a smal
 
 At Chemical Express, we distribute chemical and life-science products from suppliers including Merck KGaA, TCI, MedChemExpress and Elabscience. Across a catalogue of more than a million sellable products, similar names can conceal different grades, purity levels or pack sizes. Getting the product wrong makes almost everything that follows less useful.
 
-I built QT AI Agents to help with that work. I handled the conversations with the teams, the system design, implementation and testing. It grew out of the ERP and CRM integrations and custom business tools I had already built, so I knew both the systems involved and the people who would depend on it.
+I built QT AI Agents to help with that work. I handled the conversations with the teams, the system design, implementation and testing. It grew out of the business tools I had already built, including the connection between our ERP, which holds operational records, and our CRM, which helps the team manage customer relationships. I knew the systems involved and the people who would depend on them.
 
 ## What changed in everyday work
 
-The workflow supports 10 salespeople, one product specialist and six customer service staff. It handles roughly **6,000–10,000 requested product lines a month**. Those are individual product lines, so one customer email can contribute several.
+The workflow supports 10 salespeople, one product specialist and six customer service staff, whom I'll refer to as CS. It handles roughly **6,000–10,000 requested product lines a month**. Those are individual product lines, so one customer email can contribute several.
 
 Today, **CS accepts over 98% of suggested products without changing them**, based on production approval logs. Every quotation still goes through human review. This product acceptance rate tells me how often the suggestion survives that review unchanged.
 
@@ -24,7 +24,7 @@ Once processing starts, a draft is typically ready for review in **2–4 minutes
 
 The email inbox is checked every five minutes. We chose that interval because a short delay before processing was acceptable for this workflow. Building around instant arrival would have added complexity without addressing the biggest source of delay.
 
-The orchestrator first interprets the request. Is the customer asking for a quotation, a price, or availability? For a quotation, the workflow identifies the account and contact, extracts the requirements into structured data, and uses a separate worker when an attachment needs parsing. CS can inspect that extracted information while the rest of the work continues.
+An agent coordinates the work, starting by understanding what the customer is asking for. We call it the orchestrator. A request for a quotation needs a different sequence of steps from a quick enquiry about price or availability. For a quotation, the workflow identifies the account and contact, organises the requirements into fields the rest of the system can use, and uses a separate worker when an attachment needs parsing. CS can inspect that extracted information while the rest of the work continues.
 
 Some requirements are easy to overlook. Billing and delivery addresses can differ. The same contact may pay cash on one occasion and use credit on another. A customer may need VAT displayed a particular way, their name shown on the document, or a preliminary receipt so they can withdraw funds before paying us.
 
@@ -32,9 +32,9 @@ Those details belong to the request being handled. Automating them reduced the a
 
 ## Finding a product, then checking the offer
 
-Product search combines keyword and meaning-based retrieval in OpenSearch. Cohere reranking through Amazon Bedrock then examines the candidates more closely. We apply product metadata and filters, including brand, purity, grade and pack, and use past customer orders where they help resolve the request.
+Product search starts by looking for matching words and related descriptions in OpenSearch. Cohere, accessed through Amazon Bedrock, then compares the possible matches more closely and puts them in order. Brand, purity, grade and pack size help narrow the choice, and previous customer orders can provide useful context.
 
-A clear match can become the proposed product. Similar candidates or missing requirements need attention from CS or sales, who can contact the customer. The interface normally starts with three candidates and lets the reviewer expand the results.
+When one product clearly fits the requirements, the system suggests it. Similar candidates or missing requirements need attention from CS or sales, who can contact the customer. The interface normally starts with three candidates and lets the reviewer expand the results.
 
 Pricing then combines current supplier information with the contact's recent order history. We look at their last three orders within the current and previous calendar year, but still check today's supplier cost and markup. An old selling price is useful context; it does not establish what the same offer costs us now. [The pricing note explains the supplier differences.](/work/quoting-ai/pricing/)
 
@@ -57,4 +57,4 @@ A quotation request can change while it is being prepared. We link reply emails 
 
 Once a quotation already exists, an amendment takes a more cautious route. CS sees the extracted change and must choose to proceed, especially when the document has already reached the customer or has a sales order attached. CS can also take a case fully manual, which stops the agent's work and closes the thread.
 
-That operating behaviour is part of the product. The following articles explain [thread changes and human control](/work/quoting-ai/orchestration/), [retries and infrastructure](/work/quoting-ai/runtime/), [product retrieval](/work/quoting-ai/rag/), and [how we evaluate changes](/work/quoting-ai/evaluations/).
+I wanted the system to remain useful through those ordinary changes, including the moments when someone needs to take over. The following articles explain [thread changes and human control](/work/quoting-ai/orchestration/), [retries and infrastructure](/work/quoting-ai/runtime/), [product retrieval](/work/quoting-ai/rag/), and [how we evaluate changes](/work/quoting-ai/evaluations/).

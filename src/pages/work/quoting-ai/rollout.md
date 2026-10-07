@@ -6,7 +6,7 @@ title: "Why I made QT smaller before growing it again"
 dek: "Product matching was the core of the workflow. When it wasn't reliable enough, I pulled back the quotation agent and gave the team product search first."
 ---
 
-I had built a quotation workflow that could interpret a request, search for products and prepare the next steps. But when customer service reviewed the output, too many product choices still needed changing.
+I had built a quotation workflow that could interpret a request, search for products and prepare the next steps. But when customer service (CS) reviewed the output, too many product choices still needed changing.
 
 That created a very practical problem. Someone would open the draft, spot the wrong product, and do the search again themselves. The automation had introduced another thing to check without removing enough of the original work.
 
@@ -22,7 +22,7 @@ We logged interactions and corrections from that stage. This meant we could look
 
 ## Giving the search better information and clearer rules
 
-Part of the early problem was the information available to search. We narrowed the supported scope to brands where we had useful catalogue descriptions and product details, including Merck, TCI and MedChemExpress. Our supplier relationships made that information available.
+Part of the early problem was the information available to search. We started with brands where we could obtain useful catalogue descriptions and product details, including Merck, TCI and MedChemExpress. Our supplier relationships gave us access to that information, which made a practical difference to what the search could reliably find.
 
 I also moved more of the decision into explicit checks. Brand, purity and grade became important filters, with past customer orders providing additional context. A high similarity score was useful, but it could not make an incompatible specification acceptable.
 
@@ -47,6 +47,6 @@ As the search improved, we brought the broader quotation workflow back. Today, p
 
 This experience changed the order in which I would introduce a similar system. I would start by finding the part of the job people can use and judge directly, then build outward from evidence that it is helping.
 
-It also made the feedback more useful. A correction is a clue about what needs attention: missing catalogue information, a ranking problem, an incompatible grade, or a customer requirement we do not yet know. Those lead to different fixes, and treating all of them as one accuracy problem would make the next improvement harder to choose.
+It also made the feedback more useful. A correction gave us something specific to investigate. Perhaps the catalogue was missing a detail, the right product was too far down the list, or the customer had never specified the grade. Each situation needed a different response, which helped me choose where to spend the next round of effort.
 
 [The retrieval article shows how those distinctions shaped the matching system.](/work/quoting-ai/rag/)

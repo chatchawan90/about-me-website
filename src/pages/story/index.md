@@ -10,6 +10,11 @@ There were little surprises everywhere. The food portions were huge. There were 
 
 I didn't have a car. Buying groceries could mean carrying a ten-kilogram bag of rice home from an Asian supermarket on the bus. That's one of the memories that has stayed with me, alongside the university projects and the bigger decisions.
 
+<figure class="story-photo">
+<img src="/images/story/auckland-queen-street.jpg" alt="People crossing Queen Street in central Auckland, with shopfronts and a bus along the road." width="1200" height="800" decoding="async" />
+<figcaption><span>Queen Street, Auckland. Where my New Zealand story began.</span><small>Place photo, 2010: <a href="https://commons.wikimedia.org/wiki/File:1-Auckland-Queen-St.jpg">Ed Kruger</a> / <a href="http://www.freenzphotos.com">Free NZ Photos</a>. <a href="https://creativecommons.org/licenses/by-sa/3.0/nz/">CC BY-SA 3.0 NZ</a>.</small></figcaption>
+</figure>
+
 <nav class="chapters" aria-label="Chapters in my story">
 <h2>Along the way</h2>
 <ol>
@@ -67,7 +72,7 @@ Then I got the sensor readings onto my dashboard.
 
 I almost cried. Looking back, I can see why someone with more experience might consider it a straightforward integration. At the time, I had worked out something unfamiliar and made equipment useful to the lab. That felt enormous.
 
-We went on to test the system in an actual car, looking at readings such as yaw rate and acceleration. The lab asked me to come back for another internship the following year. I was pleased they wanted me back, but I decided to try for a placement in New Zealand instead.
+We went on to test the system in an actual car, looking at readings such as acceleration and yaw rate, which tells us how quickly the car is turning about its vertical axis. The lab asked me to come back for another internship the following year. I was pleased they wanted me back, but I decided to try for a placement in New Zealand instead.
 
 ## A few months at the refinery
 
@@ -87,7 +92,7 @@ I worked with several teams. On the migration project, a consultant checked my w
 
 My interest in medicine hadn't entirely gone away. For my final-year project, I worked on a robotic training prototype for children with cerebral palsy. The idea was to make movement training more practical to fit into everyday life than the large, fixed systems we had been looking at.
 
-My part was mainly the controls. We had an H-shaped frame with two motors and a belt-driven endpoint. The movement followed a gait pattern, and the system had three operating modes. I programmed the control in National Instruments software, using sensor feedback and a PID controller to adjust how the motors responded.
+My part was mainly the controls. We had an H-shaped frame with two motors and a belt-driven endpoint. The movement followed a gait pattern, and the system had three operating modes. I programmed the control in National Instruments software, using sensor feedback and a PID controller, which continually adjusts the motors to bring the movement closer to the intended path.
 
 The difficult part was dealing with glitches in the sensor signals. An incorrect reading could make a motor respond in a way we hadn't intended, which immediately became a safety concern. We added safeguards, worked on the signal processing and kept tuning the control system.
 
@@ -139,7 +144,23 @@ My wife and her family helped a great deal with our son. Their support mattered 
 
 When graduation came, my wife and our son travelled with me to the US. I finally met my classmates and capstone teammates in person after working with them online. We had done well together, and it was good to be in the same place at last.
 
+<figure class="story-photo">
+<img src="/images/story/pittsburgh-cmu.jpg" alt="Carnegie Mellon University's Pittsburgh campus, with academic buildings surrounded by green hills." width="1280" height="769" loading="lazy" decoding="async" />
+<figcaption><span>Carnegie Mellon in Pittsburgh, the destination for our graduation trip.</span><small>Place photo, 2015: <a href="https://commons.wikimedia.org/wiki/File:Carnegie_Mellon_University_as_seen_from_the_Cathedral_of_Learning.jpg">Dllu, via Wikimedia Commons</a>. <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</small></figcaption>
+</figure>
+
 We visited Pittsburgh, Washington and New York. We went to museums, experienced how different the cities felt and drove between states. Driving there was a little frightening and a lot of fun. The trip gave us time together after a very demanding few years.
+
+<div id="us-trip-photos" class="story-photo-pair" aria-label="Places from the US trip">
+<figure class="story-photo">
+<img src="/images/story/washington-national-mall.jpg" alt="The National Mall in Washington, DC, viewed from the Capitol towards the Washington Monument." width="1280" height="853" loading="lazy" decoding="async" />
+<figcaption><span>Washington, DC. The National Mall.</span><small>Place photo, 2019: <a href="https://commons.wikimedia.org/wiki/File:National_Mall_viewed_from_Capitol,_April_20_2019.jpg">Thomson200, via Wikimedia Commons</a>. <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a>.</small></figcaption>
+</figure>
+<figure class="story-photo">
+<img src="/images/story/new-york-manhattan.jpg" alt="Manhattan rooftops and skyscrapers, including the Empire State Building, under a blue sky." width="1280" height="687" loading="lazy" decoding="async" />
+<figcaption><span>New York. A view across Manhattan.</span><small>Place photo, 2019: <a href="https://commons.wikimedia.org/wiki/File:West_side_of_Manhattan_from_Hudson_Commons_(95103p).jpg">Rhododendrites, via Wikimedia Commons</a>. <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</small></figcaption>
+</figure>
+</div>
 
 ## Still working out what comes next
 

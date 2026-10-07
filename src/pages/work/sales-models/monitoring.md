@@ -6,15 +6,15 @@ title: "The dashboard is green, but the recommendations feel wrong"
 dek: "How I would investigate a model in daily use when technical health, prediction quality and the salesperson’s experience tell different stories."
 ---
 
-The platform work included PSI drift monitoring and cost-based decision thresholds. The useful question is what a change in the data means for the recommendations people are receiving, and what the team should do about it.
-
 Imagine the service is responding quickly, no deployment has failed, and the error dashboard looks normal. Yet salespeople are beginning to reject more recommendations, particularly for one product category. A model dashboard also shows that a recent-purchase feature has shifted, which makes retraining look like a plausible response.
 
 Before starting a training job, I would follow the evidence from the source data to the recommendations people actually saw. A changed distribution can reflect a genuine buying shift, a seasonal pattern or a broken data feed. Those explanations can look similar at first, but replacing the model is only a useful response to some of them.
 
+On the platform, I used PSI, or Population Stability Index, to monitor changes in the data, alongside decision thresholds informed by business costs. PSI helps flag when the values a model receives have shifted compared with an earlier period. The investigation below shows how I would turn that signal into a useful response.
+
 ## Checking whether the inputs still mean what we think they mean
 
-I would first compare freshness, missing values, entity coverage and source completeness for the affected category. A connector can successfully return a response while leaving out a supplier's latest records, so transport success is not enough. The question is whether the feature job received the facts required to produce a valid recommendation for that group.
+I would start with a few practical questions. How old is the data, which fields are missing, and do we still have records for all the accounts and suppliers we expect? A connection can respond successfully while leaving out a supplier's latest records, so I need to check what actually reached the model.
 
 Suppose the investigation finds that recent orders from one source stopped arriving. The aggregation may then show lower activity even though customers are still buying. If missing input is converted to zero, the model receives a perfectly valid number with the wrong business meaning, which explains why a service-level error alert never fired.
 
@@ -30,9 +30,9 @@ The trace should also distinguish a recommendation being generated from it being
 
 ## Separating early signals from outcomes that are still arriving
 
-Input failures and invalid outputs can be acted on immediately. A decline in conversion or customer retention is harder to judge because the relevant buying window may not have closed. I would group evaluation by the date of the original decision and wait for comparable outcome maturity, rather than compare last week's incomplete outcomes with an older fully observed cohort.
+Input failures and invalid outputs can be acted on immediately. A decline in conversion or customer retention is harder to judge because the relevant buying window may not have closed. I would group recommendations by when they were made and give each group a comparable amount of time for purchases to arrive. Last week's suggestions have had much less time to lead to an order than those made two months ago.
 
-Different models need different checks. For a shortlist, retrieval coverage and ranking quality matter; for an acceptance probability used in a profit calculation, calibration matters. Sales-capacity metrics can be more revealing than a broad average if the team only acts on the first few suggestions.
+Different models need different checks. For a shortlist, I want to know whether the useful products were found and placed near the top. If a predicted chance of acceptance feeds a profit calculation, I also need to check calibration: whether, across enough comparable cases, offers given a similar probability are accepted about that often. Sales-capacity metrics can be more revealing than a broad average if the team only acts on the first few suggestions.
 
 Each report needs enough examples to support the conclusion, with uncertainty visible where the sample is small. A large relative movement in a tiny product group can be worth investigating without being convincing evidence that the model has broadly deteriorated. I would use leading signals to guide attention while keeping the outcome judgement open until the evidence is ready.
 
@@ -50,7 +50,7 @@ If the inputs are sound and mature outcomes show a meaningful decline, I would c
 
 Retraining then becomes a candidate response with a specific reason: enough new examples, a changed relationship, or an updated business objective. The new model still goes through the normal evaluation and approval process. A retraining trigger should not grant permission to deploy whatever the job produces.
 
-Commercial measurement also needs care. If salespeople change which recommendations they act on, the outcome distribution can move even with identical model behaviour. Stable experiment assignment and complete exposure logs help separate those effects, while account or territory grouping needs to reflect how people share knowledge and transfer behaviour across customers.
+Commercial measurement also needs care. If salespeople change which recommendations they act on, the outcome distribution can move even with identical model behaviour. I would keep a record of what each salesperson saw and keep comparison groups consistent during a test. I would also consider whether groups need to be separated by account, salesperson or territory, because people can carry what they learn from one customer conversation into another.
 
 <figure class="system-diagram" data-diagram="model-investigation" aria-labelledby="model-investigation-caption">
 <figcaption id="model-investigation-caption">Investigating a recommendation alert before retraining</figcaption>
@@ -62,7 +62,7 @@ Commercial measurement also needs care. If salespeople change which recommendati
 
 ## Closing the loop with the people who noticed it
 
-After the missing-order feed is repaired, I would validate the corrected snapshots, check the affected worklists and make sure any outstanding customer follow-up is still assigned. The technical fix does not automatically repair the work that happened while the data was incomplete. That operational review belongs in the incident closeout.
+After the missing-order feed is repaired, I would validate the corrected snapshots, check the affected worklists and make sure any outstanding customer follow-up is still assigned. The technical fix does not automatically repair the work that happened while the data was incomplete. I would include that follow-up before calling the problem resolved.
 
 I would also return to the salespeople who raised the concern and explain what changed. Their observation helped locate a problem that a healthy API could not reveal, and they need to know whether the same category is now dependable or still under review. The resulting lesson should become a data check, a clearer fallback or a better alert, so the next incident is easier to catch and resolve.
 

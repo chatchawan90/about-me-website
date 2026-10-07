@@ -50,6 +50,6 @@ That follow-through matters for trust as well. If people explain the same proble
 
 For the backorder-aware recommendation, I would first check whether it reduces inappropriate sales suggestions and makes useful follow-up easier. We would also look for worthwhile opportunities that the new rule accidentally suppresses, and allow enough time for the relevant buying outcomes to arrive before judging the commercial effect.
 
-The result of this scenario would not need to be a dramatic revenue claim. Establishing that the system can recognise a service problem, suggest an appropriate action and respond to the salesperson's knowledge would already give us a stronger basis for the next release. From there, a suitable comparison can test whether those better decisions create additional value.
+For me, the first useful result would be that the salesperson can open the account and see a next step that makes sense. We would have taken something they knew about the customer and made the system more useful because of it. From there, a suitable comparison can test whether those better decisions also create additional commercial value.
 
 [The MLOps article follows how a change like this would move through evaluation and release.](/work/sales-models/mlops/)

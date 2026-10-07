@@ -95,6 +95,7 @@
     }
 
     await renderDiagrams();
+    window.addEventListener('themechange', renderDiagrams);
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', renderDiagrams);
     window.addEventListener('pagehide', (event) => {
       if (!event.persisted) objectUrls.forEach((url) => URL.revokeObjectURL(url));

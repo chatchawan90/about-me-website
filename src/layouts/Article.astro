@@ -11,11 +11,29 @@ const i = live.findIndex((p) => p.slug === slug);
 const prev = i > 0 ? live[i - 1] : null;
 const next = i >= 0 && i < live.length - 1 ? live[i + 1] : null;
 const pageTitle = slug ? `${title} · ${project.title}` : project.title;
+const isOverview = !slug;
+const context: Record<string, { role: string; scope: string }> = {
+  'quoting-ai': { role: 'Team conversations, system design, implementation and testing.', scope: '17 people handling 6,000–10,000 product lines a month, with every quotation reviewed.' },
+  'sales-models': { role: 'Business requirements, modelling, implementation and testing.', scope: 'Nine models supporting recommendations across 3,000 accounts.' },
+  operations: { role: 'Business-system integration and custom workflows, with collaborative OCR work.', scope: 'Purchasing, warehouse, delivery and billing at a chemical distributor.' },
+};
+const overviewContext = context[projectId];
 ---
 <Base title={pageTitle} description={dek}>
-  <div class="wrap article-grid">
+  <main>
+  {isOverview && <header class="wrap overview-heading">
+    <a class="back-link" href="/work/">All work</a>
+    <p class="label">{project.title}</p>
+    <h1>{title}</h1>
+    {dek && <p class="overview-dek">{dek}</p>}
+    {overviewContext && <dl class="overview-context">
+      <div><dt>My part</dt><dd>{overviewContext.role}</dd></div>
+      <div><dt>Where it fits</dt><dd>{overviewContext.scope}</dd></div>
+    </dl>}
+  </header>}
+  <div class:list={['wrap', 'article-grid', { 'overview-grid': isOverview }]}>
     <aside class="side" aria-label={`${project.title} pages`}>
-      <a class="proj" href={pageUrl(project.id, '')}><span class="sym">{project.sym}</span><b>{project.title}</b></a>
+      <a class="proj" href={pageUrl(project.id, '')}><b>{isOverview ? 'Explore this project' : project.title}</b></a>
       <ol>
         {project.pages.map((p) =>
           p.status === 'planned'
@@ -33,11 +51,11 @@ const pageTitle = slug ? `${title} · ${project.title}` : project.title;
           {live.map((p) => <li><a href={pageUrl(project.id, p.slug)}>{p.title}</a></li>)}
         </ol>
       </details>
-      <header>
+      {!isOverview && <header>
         <div class="label">{project.title}{slug ? '' : ' · Overview'}</div>
         <h1>{title}</h1>
         {dek && <p class="dek">{dek}</p>}
-      </header>
+      </header>}
       <slot />
       {(prev || next) && (
         <nav class="pager" aria-label="More in this project">
@@ -47,5 +65,22 @@ const pageTitle = slug ? `${title} · ${project.title}` : project.title;
       )}
     </article>
   </div>
+  </main>
   <ArticleDiagrams />
 </Base>
+
+<style>
+  .overview-heading { padding-top: clamp(32px, 5vw, 64px); }
+  .back-link { display: inline-block; font: 500 14px/1.5 var(--f-display); margin-bottom: 28px; }
+  .overview-heading .label { margin: 0 0 14px; color: var(--accent); }
+  .overview-heading h1 { font-size: clamp(36px, 4.8vw, 56px); font-weight: 700; max-width: 24ch; margin: 0 0 24px; }
+  .overview-dek { font-size: clamp(19px, 2.3vw, 23px); color: var(--muted); max-width: 65ch; margin: 0; }
+  .overview-context { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin: 32px 0 0; padding-block: 24px; border-block: 1px solid var(--line); max-width: 900px; }
+  .overview-context dt { font: 600 14px/1.5 var(--f-display); margin-bottom: 5px; }
+  .overview-context dd { font-size: 16px; color: var(--muted); margin: 0; max-width: 44ch; }
+  .overview-grid { grid-template-columns: minmax(0, 1fr) 230px; gap: 72px; padding-top: 40px; }
+  .overview-grid > .side { grid-column: 2; grid-row: 1; }
+  .overview-grid > article { grid-column: 1; grid-row: 1; }
+  @media (max-width: 860px) { .overview-grid { grid-template-columns: 1fr; gap: 0; } }
+  @media (max-width: 600px) { .overview-context { grid-template-columns: 1fr; gap: 18px; } }
+</style>

@@ -6,17 +6,17 @@ title: "Designing a system a small team can actually operate"
 dek: "Following a request across the application, database, queues and legacy systems, and deciding which boundaries need to be strong before the system grows."
 ---
 
-The integration layer I built at Chemical Express uses AWS microservices with FastAPI, Docker and SQL Server over legacy ERPs without APIs. This article looks more closely at the internal design of a workflow application within that wider environment. I would use PostgreSQL for the case store, with explicit worker boundaries and a recovery path for interrupted operations.
-
 It is easy to draw a separate service for every business capability: one for products, another for pricing, another for approvals, and several more for documents and integration. Each box looks tidy in isolation. The harder question is what the team needs to understand when a salesperson is waiting, an ERP request has timed out, and a quote is halfway through approval.
+
+Those questions come from my integration work at Chemical Express, where I connected older business systems that had no API, the interface software normally uses to exchange information. I built services on AWS using FastAPI, Docker and SQL Server. Here, I'll walk through how I would design a workflow application around those systems, using PostgreSQL to keep track of each case and its progress.
 
 Within a workflow such as quotation handling, I would keep closely related business modules together and use a small number of worker types. The boundaries would follow who owns the data, which work can fail independently and where permission to act needs to be enforced. The wider platform can have several services without requiring every step inside this workflow to become another independently deployed service.
 
 ## Following the first request into the application
 
-The user reaches FastAPI through an authenticated application boundary. The API checks who they are, which accounts or cases they may access, and whether the requested action is allowed at the current stage. It records an accepted command and the associated case update before scheduling longer work.
+When someone submits a request, the application first checks who they are, which accounts or cases they may access, and whether they can take that action at the current stage. FastAPI handles these requests. Once the checks pass, the application saves the instruction and the updated case before scheduling work that takes longer.
 
-PostgreSQL is a good fit for related records such as cases, quote versions, approvals and intended operations. A transaction can keep a version change and its outbox entry together, so the system does not commit a new state and forget the action that should follow it. In the reference AWS deployment, that role is served by Aurora PostgreSQL, with ECS running the application and worker processes.
+PostgreSQL is a good fit for related records such as cases, quote versions, approvals and intended operations. I would save the case change together with a record of the next action in an outbox, a database table of work waiting to be passed on. Saving both in one transaction means either both are recorded or neither is, so we cannot save the new case state and forget the work it requires. In the reference AWS deployment, that role is served by Aurora PostgreSQL, with ECS running the application and worker processes.
 
 The ERP and CRM keep their own responsibilities. The workflow database holds the coordination record, but it does not become a second stock ledger or a replacement for posted financial transactions. Reads and writes go through adapters with explicit contracts, which keep legacy schema details and retry behaviour out of the rest of the application.
 
@@ -30,7 +30,7 @@ The ERP and CRM keep their own responsibilities. The workflow database holds the
 
 ## Making a decision atomic when two people act at once
 
-Suppose a salesperson revises a quantity while a manager is approving the previous quote. Both may have loaded the same case version, and both actions can look reasonable on their own screen. The application needs an atomic check at the point of update, not only a check performed earlier when the page loaded.
+Suppose a salesperson revises a quantity while a manager is approving the previous quote. Both may have loaded the same case version, and both actions can look reasonable on their own screen. The application needs to check the version and apply the change as one indivisible operation. That is what atomic means here: nobody can slip another change between the check and the update.
 
 A version-checked update can say, “Apply this change only if the case is still version seven.” The first valid update advances the version; the second sees a conflict and must reload the current state. PostgreSQL's concurrency behaviour allows conditional updates to re-evaluate their conditions against a concurrently updated row under Read Committed isolation; the exact transaction and retry design still needs to be tested for the application. [Transaction isolation](https://www.postgresql.org/docs/current/transaction-iso.html) explains that behaviour.
 
@@ -66,7 +66,7 @@ An approval request may remain open longer than an application deployment. If a 
 
 The same principle applies to queue messages and adapter contracts. A new optional field is easier to introduce than changing the meaning of an existing one, and a consumer needs to reject or quarantine an unsupported required version visibly. Waiting work remains pinned to compatible behaviour or follows a tested migration path.
 
-I would build the application image once and promote the same immutable artifact through the environments used for validation and release. Configuration differences still need to be recorded, but rebuilding from a moving branch at the final step would weaken the connection between what was tested and what is deployed.
+I would package the application once, test that exact package, and use it for the release. Settings may differ between the test and production environments, so those differences need to be recorded too. Rebuilding the code at the last step creates a chance that the version we deploy is no longer the one we tested.
 
 ## Practising a recovery that includes the business state
 

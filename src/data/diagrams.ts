@@ -1,5 +1,53 @@
 // QT diagrams follow the project interview; other diagrams retain their reference-design scope.
 export const DIAGRAMS: Record<string, { title: string; description: string; source: string }> = {
+  'quote-intake': {
+    title: 'From an email to structured quotation requirements',
+    description: 'The orchestrator identifies intent. For a quotation, ERP account and contact matching and attachment parsing supply a structured request. Ambiguous identities need human review; CS can inspect extracted requirements before product search continues.',
+    source: `flowchart TB
+      email["Email and any attachments"] --> intent{"What is the customer asking for?"}
+      intent -->|Price or availability| enquiry["Route to the relevant enquiry tools"]
+      intent -->|Quotation| account["Find account and contact in ERP"]
+      account --> match{"Identity is unambiguous?"}
+      match -->|No| review["CS resolves account or contact"]
+      match -->|Yes| extract["Extract requirements; parse attachments if needed"]
+      review --> extract
+      extract --> products["Products, quantities and pack requirements"]
+      extract --> terms["Billing and delivery, payment and document preferences"]
+      products --> record[("Structured request in PostgreSQL")]
+      terms --> record
+      record --> inspect["CS can inspect extracted information"]
+      record --> search["Continue to product search"]`,
+  },
+  'quote-pricing': {
+    title: 'Bringing current cost and customer history into the same offer',
+    description: 'For a selected product and pack, current supplier prices and costing are considered alongside the contact’s last three orders within this and last year. Current requirements shape the quotation, and CS reviews it before approval.',
+    source: `flowchart TB
+      product["Selected product and pack"] --> merck["Merck: supplier price lookup"]
+      product --> tci["TCI: purchasing-uploaded USD prices"]
+      product --> history["Contact history: last 3 orders within this and last year"]
+      merck --> cost["Current cost and markup through costing tools"]
+      tci --> cost
+      cost --> compare["Compare current offer with historical selling prices"]
+      history --> compare
+      terms["This request's payment terms and document requirements"] --> quote["Prepare the quotation"]
+      compare --> quote
+      quote --> review["CS reviews and approves"]
+      update["Changed pack during preparation"] -.->|Orchestrator revisits pricing| product`,
+  },
+  'quote-thread-link': {
+    title: 'How a reply finds the work already in progress',
+    description: 'The reply’s In-Reply-To reference finds a previously stored email, which identifies the internal RFQ. That request connects to the saved LangGraph thread and to an ERP quotation if one has already been generated.',
+    source: `flowchart TB
+      reply["New email: its own Message-ID"] --> reference["In-Reply-To references the earlier email"]
+      reference --> previous["Find the stored earlier email"]
+      previous --> request[("Internal RFQ ID")]
+      request --> state["LangGraph thread ID: saved workflow progress"]
+      request --> quote["Generated ERP quotation ID, if present"]
+      request --> fields["Extracted request data in PostgreSQL"]
+      state --> decision["Handle the update in the context of existing work"]
+      quote --> decision
+      fields --> decision`,
+  },
   'quote-adoption': {
     title: "Rebuilding trust through product search",
     description: "I pulled back the quotation agent, released standalone search and used logged feedback to improve it. The wider workflow returned as results improved; current product acceptance exceeds 98%.",

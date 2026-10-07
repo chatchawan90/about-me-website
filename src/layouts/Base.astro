@@ -9,12 +9,17 @@ const isActive = (p: string) => (p === '/' ? path === '/' : path.startsWith(p));
 const fullTitle = title === SITE.name ? title : `${title} · ${SITE.name}`;
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <script is:inline>
+      try {
+        document.documentElement.dataset.theme = localStorage.getItem('tee-appearance') === 'dark' ? 'dark' : 'light';
+      } catch { /* Light is the default when preferences cannot be stored. */ }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;600&display=swap" />
@@ -31,6 +36,7 @@ const fullTitle = title === SITE.name ? title : `${title} · ${SITE.name}`;
           <a href="/story/" aria-current={isActive('/story') ? 'page' : undefined}>My story</a>
           <a href="/about/" aria-current={isActive('/about') ? 'page' : undefined}>About</a>
           <a href="/about/#contact">Contact</a>
+          <button id="theme-toggle" type="button" aria-label="Use dark appearance" aria-pressed="false" hidden>Dark mode</button>
         </nav>
       </div>
     </header>
@@ -41,5 +47,25 @@ const fullTitle = title === SITE.name ? title : `${title} · ${SITE.name}`;
         <span>{SITE.email}</span>
       </div>
     </footer>
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('#theme-toggle');
+      if (toggle) {
+        const updateAppearanceControl = () => {
+          const dark = document.documentElement.dataset.theme === 'dark';
+          toggle.textContent = dark ? 'Light mode' : 'Dark mode';
+          toggle.setAttribute('aria-label', dark ? 'Use light appearance' : 'Use dark appearance');
+          toggle.setAttribute('aria-pressed', String(dark));
+        };
+        updateAppearanceControl();
+        toggle.hidden = false;
+        toggle.addEventListener('click', () => {
+          const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          document.documentElement.dataset.theme = theme;
+          try { localStorage.setItem('tee-appearance', theme); } catch { /* The current page can still switch. */ }
+          updateAppearanceControl();
+          window.dispatchEvent(new Event('themechange'));
+        });
+      }
+    </script>
   </body>
 </html>

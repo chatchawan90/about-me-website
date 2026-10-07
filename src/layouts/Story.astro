@@ -22,11 +22,25 @@ const { title, dek } = frontmatter;
 
 <style>
   .story { max-width: 70ch; margin-inline: auto; padding-top: clamp(32px, 6vw, 64px); }
+  .story > header { margin-bottom: 36px; }
+  .story h1 { font: 600 clamp(42px, 6vw, 66px)/1.12 var(--f-body); letter-spacing: -0.035em; }
+  .story :global(header + p) { font-size: 20px; line-height: 1.7; }
   .story :global(h2) { scroll-margin-top: 24px; }
   .story :global(.chapters) { border-block: 1px solid var(--line); padding-block: 22px; margin-block: 28px 36px; }
   .story :global(.chapters h2) { font-size: 20px; margin: 0 0 12px; }
   .story :global(.chapters ol) { columns: 2; column-gap: 36px; padding-left: 24px; margin: 0; }
   .story :global(.chapters li) { break-inside: avoid; padding-block: 3px; }
   .story :global(.chapters a) { font: 500 15px/1.5 var(--f-display); }
-  @media (max-width: 600px) { .story :global(.chapters ol) { columns: 1; } }
+  .story :global(.story-photo) { margin: 32px 0 40px; min-width: 0; }
+  .story :global(.story-photo img) { display: block; width: 100%; height: auto; border-radius: 3px; }
+  .story :global(.story-photo figcaption) { margin-top: 12px; font: 400 15px/1.5 var(--f-body); color: var(--muted); }
+  .story :global(.story-photo figcaption span) { display: block; color: var(--ink); }
+  .story :global(.story-photo figcaption small) { display: block; margin-top: 5px; font: 400 12px/1.6 var(--f-display); }
+  .story :global(.story-photo figcaption a) { color: inherit; }
+  .story :global(.story-photo-pair) { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin: 32px 0 40px; }
+  .story :global(.story-photo-pair .story-photo) { margin: 0; }
+  @media (max-width: 600px) {
+    .story :global(.chapters ol) { columns: 1; }
+    .story :global(.story-photo-pair) { grid-template-columns: 1fr; gap: 28px; }
+  }
 </style>

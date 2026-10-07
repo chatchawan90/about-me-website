@@ -5,7 +5,7 @@ Static site built with Astro.
 ## Run locally
 ```
 npm install
-npm run dev      # http://localhost:4321
+npm run dev      # http://127.0.0.1:4321
 npm run build    # outputs to dist/
 ```
 
@@ -20,10 +20,18 @@ reported results or every reference architecture have been independently audited
 
 ## Publish
 
-The site is registered with Sites in `.openai/hosting.json`. Build with
-`npm run build`; static output is `dist/`. Use the Sites hosting workflow to
-push source, package that exact build and deploy its saved version. Preserve
-the existing audience when publishing edits. The GitHub origin remains unchanged.
+The local project is the single source for the website. Use the existing preview
+at `http://127.0.0.1:4321/`; the QT case study is at `/work/quoting-ai/`.
+The dev server uses a fixed port and fails if it is occupied rather than silently
+starting another preview on a different port.
+
+The user wants hosting outside ChatGPT. Do not create or deploy a ChatGPT Site.
+Build with `npm run build`; the portable static website is generated in `dist/`.
+When a hosting provider and domain are chosen, set `site` in `astro.config.mjs`
+to that domain. The GitHub origin remains unchanged.
+
+The earlier ChatGPT hosting association has been removed from this checkout.
+That local cleanup does not delete the previously published private hosted copy.
 
 ## Editorial structure and sources
 
@@ -119,7 +127,7 @@ language, and do not turn them into claims of historical incidents or outcomes.
 
 ## Architecture and flow diagrams
 
-The articles contain 14 authored diagrams, defined in `src/data/diagrams.ts`.
+The articles contain 17 authored diagrams, defined in `src/data/diagrams.ts`.
 To place one, add a `figure.system-diagram` with a matching `data-diagram` key,
 a descriptive caption and a text description inside `details`.
 `ArticleDiagrams.astro` loads Mermaid only on pages containing a diagram and
@@ -127,7 +135,7 @@ renders the figure using the site's current light or dark palette. Each figure
 also offers a full-size SVG view. Text explanations remain available without
 JavaScript. No customer records or private handbook pages are embedded.
 
-Keep diagram changes aligned with the surrounding narrative. The six QT diagrams
+Keep diagram changes aligned with the surrounding narrative. The nine QT diagrams
 reflect the direct interview, with evaluation extensions marked as planned. Other
 project diagrams retain their reference-design scope.
 Mermaid syntax checks and the Astro build validate syntax and integration; browser
@@ -207,3 +215,47 @@ The direct interview takes precedence over earlier CV and handbook summaries:
 This publication updates the eight QT pages, their navigation and homepage links,
 and six diagrams. Sales recommendation content is awaiting its separate interview.
 Private family details, original attachments and interview data are not website assets.
+
+QT diagram follow-up: added intake, supplier pricing and email identity diagrams next
+to the relevant explanations. All eight QT articles now have a diagram, with two
+on the orchestration page. Keep rendering checks separate from syntax checks.
+
+## Whole-site voice review, 2026-10-07
+
+Reviewed all 24 pages and shared navigation copy for the agreed conversational,
+professional voice. Technical articles now introduce concrete situations before
+implementation details, explain terms where they first matter, and use connected
+paragraphs with room for the reasoning. The life story and About needed fewer
+changes. Preserve this pace in later edits; do not compress the articles into
+resume bullets or slogans. Keep hypothetical design choices conditional and
+future QT evaluation work distinct from the deployed product tests.
+
+## Story photographs
+
+The user selected public place photographs for the Auckland and US chapters.
+Four locally stored JPEGs in `public/images/story/` show Queen Street (2010),
+Carnegie Mellon's Pittsburgh campus (2015), the National Mall (2019) and
+Manhattan (2019). Captions identify them as place photographs, with their dates,
+author/source and licence links; they are not photos of Tee or his actual trips.
+`public/images/story/credits.json` preserves download URLs and reuse information.
+The photographs retain their original framing; the US images use Wikimedia's
+1280-pixel thumbnails. Retain all credits when replacing or moving images.
+The later images lazy-load, and the city pair stacks vertically below 600px.
+
+## Design refresh, 2026-10-07
+
+The user approved a more personal, selective presentation and supplied the navy
+blazer portrait. Its source lives in `src/assets/tee-portrait.png`; Astro generates
+responsive WebP versions. Keep the subject and photograph unchanged.
+The homepage introduces Tee beside the portrait, then features QT and the sales
+platform. Operations and EnvSearch remain discoverable as supporting projects,
+and the personal story has its own invitation. Project screenshots/previews are
+explicitly deferred, so do not invent or add placeholder product images.
+
+The default appearance is light, with neutral off-white, navy text and subdued
+blue links. The header offers a dark appearance and remembers a reader's explicit
+choice in `tee-appearance`. System dark-mode preferences no longer override the
+light default. Theme changes also rerender Mermaid diagrams in the active palette.
+Project overviews have a wider introduction, role/context summary and right-side
+project navigation; detailed articles retain the reading layout with left-side
+navigation. The life story uses a serif title and its existing place photography.

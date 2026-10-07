@@ -18,7 +18,7 @@ For a customer who accepts partial deliveries, the available items might be able
 
 Sales can explain what has been agreed with the customer, finance can identify the unresolved document requirement, and the warehouse can clarify what it needs to prepare and release the shipment. The useful outcome of that conversation is a set of explicit dependencies: which checks must happen before dispatch, which affect billing, and who can authorise an exception.
 
-This example does not assume one rule applies to every government customer in Thailand. The point is to represent the agreed process accurately enough that the system does not silently invent permission or block work for an unrelated reason.
+Government customers in Thailand can have different document requirements, so I would check the agreement for the particular customer. That gives us a practical basis for deciding what may move ahead and what still needs attention.
 
 ## Letting the order be partly finished
 
@@ -48,7 +48,7 @@ I would keep the ERP-specific translation in an adapter: a defined part of the a
 
 The same care is needed during a technical failure. Suppose the ERP accepts an update but the CRM request fails, leaving the two systems showing different progress. Retrying the entire operation could repeat the part that already succeeded, while ignoring the error would leave the salesperson working from an incomplete record.
 
-I would persist the result for each target separately and retain a reference that can be used to check what actually happened. Confirmed failures can be retried where the operation supports safe repetition; uncertain outcomes need reconciliation before another attempt. A background check can surface unresolved mismatches with an owner and the evidence needed to repair them.
+I would save the result of each system update separately, with a reference we can use to check whether it completed. If an update definitely failed and is safe to repeat, we can retry it. If we do not know whether it succeeded, we need to check the receiving system first. A background check can surface unresolved mismatches with an owner and the evidence needed to repair them.
 
 That recovery process belongs in the integration from the beginning. Without it, a connection that works well on a normal day can still leave the team doing manual detective work whenever a timeout occurs.
 
@@ -60,4 +60,4 @@ Clear modules and adapters provide useful boundaries without requiring every par
 
 For the order in this scenario, success would mean that each team can see its own next step and how it affects the others. Sales can give the customer a coherent update, the warehouse knows what may ship, and finance can resolve the remaining requirement without relying on an ambiguous “ready” flag. The software supports the agreement the people made and keeps the unfinished parts visible until they are actually resolved.
 
-[The quoting-agent article uses the same principles to handle interrupted writes and approvals.](/work/quoting-ai/orchestration/)
+[The quoting-agent article follows what happens when a customer changes a request and someone needs to review the next step.](/work/quoting-ai/orchestration/)

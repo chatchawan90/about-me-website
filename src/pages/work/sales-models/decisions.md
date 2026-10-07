@@ -14,7 +14,7 @@ I would make that combining step a visible part of the system. It is where predi
 
 Some conditions are not matters of predicted likelihood. A product may be ineligible for a customer, a contract may determine the price, or a proposed discount may require approval. I would keep those conditions in explicit rules so a high model score cannot silently bypass them.
 
-Other constraints change which action is sensible rather than making the whole account irrelevant. Limited stock might defer a product suggestion, and an open backorder might turn a selling opportunity into a service follow-up. Once those constraints are considered, the system can compare the remaining opportunities using expected value, action cost and the team's available time.
+Other constraints change which action is sensible rather than making the whole account irrelevant. Limited stock might defer a product suggestion, and an open backorder might turn a selling opportunity into a service follow-up. Once those constraints are considered, the system can compare the remaining opportunities by weighing what each might be worth, the effort required and the time the team has available.
 
 This separation also helps when the business changes its policy. Adjusting a contact-frequency limit should not require retraining every model, just as retraining a model should not alter the company's approval limits. A record of the model versions, rules, input snapshot and final reason lets the team work out which part produced the decision.
 
@@ -34,7 +34,7 @@ Some decisions do need current context because a person is waiting for an answer
 </details>
 </figure>
 
-## Why I would not start with nine separate endpoints
+## Deciding how many services the team needs to run
 
 For small models that use similar inputs and have similar operating needs, a shared service can load them together and avoid a sequence of network calls. The reference design uses a combined service on ECS for suitable online models, while scheduled jobs handle the broader population. That is a practical starting point for controlling idle cost and reducing the number of components the team has to look after.
 

@@ -8,9 +8,11 @@ dek: "The recommendation platform brings several models together around a practi
 
 If a salesperson has time for ten calls today, which ten are worth making? A customer may be due to reorder, another may have stopped buying, and a new enquiry may deserve a quick response before it goes cold. Working out the best use of that time involves more than choosing the account with the highest predicted chance of buying something.
 
+Our salespeople relied on their experience and past orders, but naturally spent most of their attention on the accounts they knew best. Smaller accounts with room to grow, customers who had gone quiet and opportunities in other product categories could be missed.
+
 I built and deployed a nine-model recommendation platform to help our sales team make those decisions across 3,000 accounts and a catalogue of more than a million sellable products. Some models look at the customer, such as whether their buying behaviour has changed or when they might reorder. Others help find relevant products, put them in a useful order or guide a pricing decision.
 
-I handled the conversations with the teams, implementation and testing, along with product categorisation across the catalogue. Project reporting recorded a 15% reactivation uplift and a 20% reduction in churn. Reactivation concerns customers returning to buy; churn concerns customers leaving or stopping their purchases.
+I handled the conversations with the teams, implementation and testing, along with product categorisation across the catalogue. The reported results included a 15% reactivation uplift and a 20% reduction in churn. In everyday terms, we were looking at customers coming back to buy and fewer customers stopping their purchases.
 
 Some of the most useful feedback came from asking salespeople why they overrode the recommendations. I retrained around how orders were actually placed and evaluated changes in shadow mode, where the new model's suggestions could be examined before they changed what people saw. Those conversations helped me understand what a useful recommendation needed to include.
 
@@ -36,7 +38,7 @@ Product categorisation helps both stages by making the catalogue easier to under
 
 ## Connecting the models without confusing their roles
 
-The nine families cover account health, reactivation, customer value, lead conversion, reorder and category interest, candidate retrieval, product ranking, next-best action, and quote acceptance or pricing. They answer related questions, but their outputs are not interchangeable. A risk score, a ranked list and an estimate of future value each need to be interpreted in the context of a decision.
+For this walkthrough, I group the work into nine families: account health, reactivation, customer value, lead conversion, reorder and category interest, candidate retrieval, product ranking, next-best action, and quote acceptance or pricing. They answer related questions, but their outputs are not interchangeable. A risk score, a ranked list and an estimate of future value each need to be interpreted in the context of a decision.
 
 A separate part of the system brings those outputs together with business rules. It considers whether the product is available, whether the offer meets commercial requirements, whether the customer has already been contacted, and whether the salesperson has capacity to act. Keeping that logic explicit makes it possible to explain why a promising recommendation was deferred or changed.
 

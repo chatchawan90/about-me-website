@@ -1,0 +1,54 @@
+[
+  {
+    "id": "auckland-queen-street",
+    "source": "https://commons.wikimedia.org/wiki/File:1-Auckland-Queen-St.jpg",
+    "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/73/1-Auckland-Queen-St.jpg",
+    "bytes": 1072093,
+    "author": "Ed Kruger / Free NZ Photos",
+    "license": "CC BY-SA 3.0 NZ",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0/nz/",
+    "date_taken": "2010-10-25",
+    "local_file": "auckland-queen-street.jpg",
+    "changes": "Downloaded original or Wikimedia thumbnail; no further crop or visual changes.",
+    "context": "Public place photograph, not a personal photograph or a record of the author\u2019s visit."
+  },
+  {
+    "id": "pittsburgh-cmu",
+    "source": "https://commons.wikimedia.org/wiki/File:Carnegie_Mellon_University_as_seen_from_the_Cathedral_of_Learning.jpg",
+    "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Carnegie_Mellon_University_as_seen_from_the_Cathedral_of_Learning.jpg/1280px-Carnegie_Mellon_University_as_seen_from_the_Cathedral_of_Learning.jpg",
+    "bytes": 358784,
+    "author": "Dllu",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "date_taken": "2015-08-25",
+    "local_file": "pittsburgh-cmu.jpg",
+    "changes": "Downloaded original or Wikimedia thumbnail; no further crop or visual changes.",
+    "context": "Public place photograph, not a personal photograph or a record of the author\u2019s visit."
+  },
+  {
+    "id": "washington-national-mall",
+    "source": "https://commons.wikimedia.org/wiki/File:National_Mall_viewed_from_Capitol%2C_April_20_2019.jpg",
+    "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/54/National_Mall_viewed_from_Capitol%2C_April_20_2019.jpg/1280px-National_Mall_viewed_from_Capitol%2C_April_20_2019.jpg",
+    "bytes": 345345,
+    "author": "Thomson200",
+    "license": "CC0 1.0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "date_taken": "2019-04-20",
+    "local_file": "washington-national-mall.jpg",
+    "changes": "Downloaded original or Wikimedia thumbnail; no further crop or visual changes.",
+    "context": "Public place photograph, not a personal photograph or a record of the author\u2019s visit."
+  },
+  {
+    "id": "new-york-manhattan",
+    "source": "https://commons.wikimedia.org/wiki/File:West_side_of_Manhattan_from_Hudson_Commons_%2895103p%29.jpg",
+    "image_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/West_side_of_Manhattan_from_Hudson_Commons_%2895103p%29.jpg/1280px-West_side_of_Manhattan_from_Hudson_Commons_%2895103p%29.jpg",
+    "bytes": 276594,
+    "author": "Rhododendrites",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "date_taken": "2019-10-19",
+    "local_file": "new-york-manhattan.jpg",
+    "changes": "Downloaded original or Wikimedia thumbnail; no further crop or visual changes.",
+    "context": "Public place photograph, not a personal photograph or a record of the author\u2019s visit."
+  }
+]

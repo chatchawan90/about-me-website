@@ -10,7 +10,7 @@ Imagine we've trained a new version of the model that sorts product recommendati
 
 Before putting it in front of sales, I would want to understand what sits behind that improvement. The average may have improved while recommendations for a smaller product category got worse. The test might also include information that wouldn't have been available when the recommendation was made.
 
-These are the kinds of questions I deal with in MLOps, which means managing models through training, release and everyday use. On the sales platform, my production work included point-in-time feature pipelines, shadow releases, PSI drift monitoring and thresholds based on business costs. PSI, or Population Stability Index, helps compare how data distributions change between periods.
+These are the kinds of questions I deal with in MLOps, which means managing models through training, release and everyday use. On the sales platform, I worked on preparing historically accurate training inputs, checking candidate models before showing their recommendations to users, and monitoring changes in the data. I also used the business cost of a wrong action to help set decision thresholds. I'll explain the methods as we follow a release through the system.
 
 To show how those pieces fit together, I'll follow this candidate model from its promising test result through to a release decision. The question throughout is whether the people using it would be better off with the change.
 
@@ -26,9 +26,9 @@ Those decisions are especially important when different models support different
 
 Once the dataset is credible, I would compare the candidate with the current model across the customer and product groups that matter to the business. An overall gain deserves closer attention if it comes with a noticeable loss for a priority category or new customers who have little purchase history. The question is whether the trade-off is acceptable and understood, rather than whether one number is higher.
 
-The checks also depend on how the output is used. A ranker needs to order a useful shortlist, while a probability feeding an expected-profit calculation needs to be reasonably calibrated: predictions around a given probability should behave like that probability over enough comparable cases. Catalogue coverage, response time and violations of commercial rules all belong in the evaluation because they affect the experience salespeople receive.
+The checks also depend on how the output is used. A ranker needs to put useful products near the top of a shortlist. If another model estimates the chance of an offer being accepted, and we use that chance to calculate expected profit, I also want to know whether its probabilities are dependable. For example, across enough comparable offers scored around 70%, roughly seven in ten should be accepted; checking that relationship is called calibration. Catalogue coverage, response time and violations of commercial rules all belong in the evaluation because they affect the experience salespeople receive.
 
-I would keep the candidate's data snapshot, feature definitions, preprocessing, model file and serving image together with those results. That makes it possible to identify exactly what was tested and reproduce the approved combination, instead of deploying a model file alongside slightly different preparation code.
+Alongside those results, I would keep a record of the exact data, input definitions, preparation code, model file and packaged prediction service used in the test. That makes it possible to identify exactly what was tested and reproduce the approved combination, instead of deploying a model file alongside slightly different preparation code.
 
 ## Letting a candidate earn a wider audience
 
@@ -38,9 +38,9 @@ After that, I would release to a limited group with stable assignment, so an acc
 
 The reference stack uses MLflow to compare experiments and SageMaker Model Registry to approve production candidates. The practical requirement is that there is one agreed authority for what is approved; experiment tracking and deployment should not quietly disagree about which version is in use.
 
-Approval is also different from readiness to serve. Before routing a pilot to a candidate, I would load its immutable artifact and serving image, check the input schema, and run known requests through the actual prediction path. For batch models, the equivalent check is that the complete output snapshot is present, covers the intended accounts and can be read by the application. A successful training job does not establish any of those things.
+Approval is also different from readiness to serve. Before letting the pilot use a candidate, I would load the approved model and its prediction service, check that the incoming fields match what it expects, and run known requests through it. For batch models, the equivalent check is that the complete output snapshot is present, covers the intended accounts and can be read by the application. A successful training job does not establish any of those things.
 
-The release record needs to connect the model with the feature contract and the decision policy around it. That does not require all nine models to be deployed together, but it does require compatible versions wherever they interact. If the ranker changes the scale of its output, a downstream rule must not continue treating the new score as though its meaning were unchanged.
+The release record also needs to identify the input definitions and business rules that belong with that model. That does not require all nine models to be deployed together, but it does require compatible versions wherever they interact. If the ranker changes the scale of its output, a downstream rule must not continue treating the new score as though its meaning were unchanged.
 
 <figure class="system-diagram" data-diagram="ml-release" aria-labelledby="ml-release-caption">
 <figcaption id="ml-release-caption">The path from a trained candidate to a production release</figcaption>

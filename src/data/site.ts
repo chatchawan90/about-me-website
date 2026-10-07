@@ -30,11 +30,11 @@ export const PROJECTS: Project[] = [
     oneLiner: 'Helping sales turn a complicated customer request into a quote, while keeping track of the details that need checking.',
     pages: [
       { slug: '', title: 'Overview', blurb: 'The business problem, the architecture, and what changed.' },
-      { slug: 'orchestration', title: 'Operating agents in production', blurb: 'Email threads, saved state, changing requirements and the point where CS takes over.' },
+      { slug: 'orchestration', title: 'Operating agents in production', blurb: 'Following email replies, remembering progress and knowing when customer service needs to take over.' },
       { slug: 'runtime', title: 'Keeping the work moving', blurb: 'Fargate workers, failed tool calls, stale queued work and an estimated operating budget.' },
-      { slug: 'evaluations', title: 'Releasing a change to the AI', blurb: 'The 200-chain product dataset, review feedback and the workflow checks planned next.' },
+      { slug: 'evaluations', title: 'Releasing a change to the AI', blurb: 'Checking product matches against past requests, learning from review feedback and planning the next tests.' },
       { slug: 'rag', title: 'When a similar product is wrong', blurb: 'Finding the right item in a large catalogue takes more than matching the name on the bottle.' },
-      { slug: 'rollout', title: 'Making QT smaller so people would use it', blurb: 'Pulling back the first release, introducing standalone search and learning from CS corrections.' },
+      { slug: 'rollout', title: 'Making QT smaller so people would use it', blurb: "Pulling back the first release, introducing product search on its own and learning from the team's corrections." },
     ],
   },
   {
@@ -68,7 +68,7 @@ export const PROJECTS: Project[] = [
     sym: 'Es',
     title: 'EnvSearch',
     oneLiner: 'A public English and Thai regulation-search project, with cited answers, an evaluation set and tools for Claude Desktop.',
-    pages: [{ slug: '', title: 'Overview', blurb: 'Making retrieval, source evidence and refusals visible in a public project.' }],
+    pages: [{ slug: '', title: 'Overview', blurb: 'Finding the source, showing the evidence and knowing when the documents cannot answer.' }],
   },
   {
     id: 'verda',

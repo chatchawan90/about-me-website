@@ -8,7 +8,9 @@ dek: "The purchasing, delivery and billing work behind a chemical distributor, a
 
 An order looks much simpler in a sales report than it does while people are trying to fulfil it. The customer may have requested several products that come from different suppliers, some available now and others on backorder. Delivering the available items is one part of the job; keeping track of what is still owed and preparing the documents the customer needs can take a separate round of coordination.
 
-That was the setting for my integration work at Chemical Express. I built an AWS microservices layer using FastAPI, Docker and SQL Server around legacy ERPs that had no API, connected Zoho CRM, and added custom purchasing, delivery and billing workflows. I handled the stakeholder conversations, design, implementation and testing, working through how information needed to move between the people responsible for each stage.
+That was the setting for my integration work at Chemical Express. Our ERP systems held the operational records, while Zoho CRM helped manage customer relationships. I connected them and built custom tools for the purchasing, delivery and billing work that fell between them.
+
+The older ERP systems had no API, the interface software normally uses to exchange information, so connecting them needed more than a standard plug-in. I built an integration layer on AWS using FastAPI, Docker and SQL Server. I also worked directly with the teams to understand the process, then handled the design, coding and testing.
 
 The reported results were more than 100 hours of manual handling removed each week and stock discrepancies reduced to 0.1%. Those outcomes belong to the wider integration and operational work, including the collaborative OCR effort.
 
@@ -38,7 +40,7 @@ If all of those concerns are collapsed into “complete” or “incomplete,” 
 
 ## Where OCR fits into the picture
 
-The wider work includes OCR for reading inbound product labels and supplier invoices. OCR is software that extracts text from an image or scanned document, which can reduce the amount someone has to type before checking a receipt. This has been a collaborative area rather than a project I claim to have implemented alone, and work on outbound verification is still underway.
+The wider work includes OCR for reading inbound product labels and supplier invoices. OCR is software that extracts text from an image or scanned document, which can reduce the amount someone has to type before checking a receipt. I worked with others on this part of the platform, and work on checking outbound products is still underway.
 
 Reading the text is only the first step. If a supplier invoice and a physical label disagree, the workflow needs to retain both pieces of evidence and give someone a way to resolve the mismatch against the expected item. Simply choosing one and updating the record would make the data look clean while leaving the actual uncertainty unresolved.
 
