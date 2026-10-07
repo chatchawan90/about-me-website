@@ -1,0 +1,32 @@
+---
+import Base from './Base.astro';
+const { frontmatter } = Astro.props;
+const { title, dek } = frontmatter;
+---
+<Base title={title} description={dek}>
+  <main class="wrap">
+    <article class="prose story">
+      <header>
+        <div class="label">My story</div>
+        <h1>{title}</h1>
+        <p class="dek">{dek}</p>
+      </header>
+      <slot />
+      <nav class="pager" aria-label="Keep reading">
+        <a href="/about/"><span class="label">About</span><b>A little about me today</b></a>
+        <a class="next" href="/work/"><span class="label">Work</span><b>Explore the projects</b></a>
+      </nav>
+    </article>
+  </main>
+</Base>
+
+<style>
+  .story { max-width: 70ch; margin-inline: auto; padding-top: clamp(32px, 6vw, 64px); }
+  .story :global(h2) { scroll-margin-top: 24px; }
+  .story :global(.chapters) { border-block: 1px solid var(--line); padding-block: 22px; margin-block: 28px 36px; }
+  .story :global(.chapters h2) { font-size: 20px; margin: 0 0 12px; }
+  .story :global(.chapters ol) { columns: 2; column-gap: 36px; padding-left: 24px; margin: 0; }
+  .story :global(.chapters li) { break-inside: avoid; padding-block: 3px; }
+  .story :global(.chapters a) { font: 500 15px/1.5 var(--f-display); }
+  @media (max-width: 600px) { .story :global(.chapters ol) { columns: 1; } }
+</style>

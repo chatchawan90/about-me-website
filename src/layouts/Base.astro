@@ -1,0 +1,45 @@
+---
+import '../styles/global.css';
+import { SITE } from '../data/site';
+
+interface Props { title: string; description?: string }
+const { title, description = 'Stories from the life and work of Chatchawan (Tee) Lakkhananukun, an engineer and father of two based in Bangkok.' } = Astro.props;
+const path = Astro.url.pathname;
+const isActive = (p: string) => (p === '/' ? path === '/' : path.startsWith(p));
+const fullTitle = title === SITE.name ? title : `${title} · ${SITE.name}`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;600&display=swap" />
+  </head>
+  <body class={SITE.draft ? 'is-draft' : ''}>
+    {SITE.draft && (
+      <div class="draft-bar"><div class="wrap">Draft · <span class="tbc">Highlighted details</span> are awaiting confirmation.</div></div>
+    )}
+    <header class="top">
+      <div class="wrap">
+        <a class="mark" href="/">{SITE.name} <span>· Bangkok</span></a>
+        <nav aria-label="Main">
+          <a href="/work/" aria-current={isActive('/work') ? 'page' : undefined}>Work</a>
+          <a href="/story/" aria-current={isActive('/story') ? 'page' : undefined}>My story</a>
+          <a href="/about/" aria-current={isActive('/about') ? 'page' : undefined}>About</a>
+          <a href="/about/#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+    <slot />
+    <footer class="site">
+      <div class="wrap">
+        <span>Stories from my life and work.</span>
+        <span>{SITE.email}</span>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+---
+import Base from './Base.astro';
+import ArticleDiagrams from '../components/ArticleDiagrams.astro';
+import { PROJECTS, pageUrl } from '../data/site';
+
+const { frontmatter } = Astro.props;
+const { title, dek, project: projectId, slug = '' } = frontmatter;
+const project = PROJECTS.find((p) => p.id === projectId)!;
+const live = project.pages.filter((p) => p.status !== 'planned');
+const i = live.findIndex((p) => p.slug === slug);
+const prev = i > 0 ? live[i - 1] : null;
+const next = i >= 0 && i < live.length - 1 ? live[i + 1] : null;
+const pageTitle = slug ? `${title} · ${project.title}` : project.title;
+---
+<Base title={pageTitle} description={dek}>
+  <div class="wrap article-grid">
+    <aside class="side" aria-label={`${project.title} pages`}>
+      <a class="proj" href={pageUrl(project.id, '')}><span class="sym">{project.sym}</span><b>{project.title}</b></a>
+      <ol>
+        {project.pages.map((p) =>
+          p.status === 'planned'
+            ? <li><span>{p.title}<small>Coming</small></span></li>
+            : <li><a href={pageUrl(project.id, p.slug)} aria-current={p.slug === slug ? 'page' : undefined}>{p.title}</a></li>
+        )}
+      </ol>
+      <a class="label" href="/work/" style="text-decoration:none">← All work</a>
+    </aside>
+
+    <article class="prose">
+      <details class="mobile-nav">
+        <summary>{project.sym} · {project.title}: all pages</summary>
+        <ol>
+          {live.map((p) => <li><a href={pageUrl(project.id, p.slug)}>{p.title}</a></li>)}
+        </ol>
+      </details>
+      <header>
+        <div class="label">{project.title}{slug ? '' : ' · Overview'}</div>
+        <h1>{title}</h1>
+        {dek && <p class="dek">{dek}</p>}
+      </header>
+      <slot />
+      {(prev || next) && (
+        <nav class="pager" aria-label="More in this project">
+          {prev && <a href={pageUrl(project.id, prev.slug)}><span class="label">Previous</span><b>{prev.title}</b></a>}
+          {next && <a class="next" href={pageUrl(project.id, next.slug)}><span class="label">Next</span><b>{next.title}</b></a>}
+        </nav>
+      )}
+    </article>
+  </div>
+  <ArticleDiagrams />
+</Base>

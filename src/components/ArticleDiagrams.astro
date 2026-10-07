@@ -1,0 +1,103 @@
+<script>
+  import { DIAGRAMS } from '../data/diagrams';
+
+  const figures = Array.from(document.querySelectorAll<HTMLElement>('figure[data-diagram]'));
+  if (figures.length) {
+    const { default: mermaid } = await import('mermaid');
+    // Stable local fonts keep measurement independent of remote font loading.
+    const font = 'Arial, Helvetica, sans-serif';
+    let serial = 0;
+    let rendering = false;
+    let rerender = false;
+    const objectUrls = new Map<HTMLElement, string>();
+
+    async function renderDiagrams() {
+      if (rendering) { rerender = true; return; }
+      rendering = true;
+      const styles = getComputedStyle(document.documentElement);
+      const color = (name: string) => styles.getPropertyValue(name).trim();
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'strict',
+        suppressErrorRendering: true,
+        theme: 'base',
+        fontFamily: font,
+        themeVariables: {
+          fontFamily: font, fontSize: '16px',
+          background: color('--surface'),
+          primaryColor: color('--accent-soft'), primaryTextColor: color('--ink'),
+          primaryBorderColor: color('--accent'), secondaryColor: color('--tile'),
+          tertiaryColor: color('--surface'), lineColor: color('--muted'),
+          textColor: color('--ink'), mainBkg: color('--surface'),
+          nodeBorder: color('--line'), edgeLabelBackground: color('--surface'),
+          clusterBkg: color('--tile'), clusterBorder: color('--line'),
+          actorBkg: color('--accent-soft'), actorTextColor: color('--ink'),
+          actorBorder: color('--accent'), actorLineColor: color('--muted'),
+          signalColor: color('--ink'), signalTextColor: color('--ink'),
+          labelBoxBkgColor: color('--tile'), labelBoxBorderColor: color('--line'),
+          labelTextColor: color('--ink'), loopTextColor: color('--ink'),
+          noteBkgColor: color('--warn-soft'), noteTextColor: color('--ink'),
+          noteBorderColor: color('--warn'),
+        },
+        flowchart: { htmlLabels: false, useMaxWidth: true, nodeSpacing: 24, rankSpacing: 36, padding: 14, wrappingWidth: 180 },
+        sequence: { useMaxWidth: true, actorMargin: 28, messageMargin: 28, diagramMarginX: 12, wrap: true },
+      });
+
+      for (const figure of figures) {
+        const definition = DIAGRAMS[figure.dataset.diagram ?? ''];
+        if (!definition) continue;
+        let canvas = figure.querySelector<HTMLElement>('.diagram-canvas');
+        if (!canvas) {
+          canvas = document.createElement('div');
+          canvas.className = 'diagram-canvas';
+          figure.prepend(canvas);
+        }
+        try {
+          const source = definition.source.replace('\n', `\naccTitle: ${definition.title}\naccDescr: ${definition.description}\n`);
+          const { svg } = await mermaid.render(`article-diagram-${serial++}`, source);
+          canvas.innerHTML = svg;
+          const graphic = canvas.querySelector('svg');
+          if (graphic) {
+            // Limit downscaling so labels remain readable on narrow screens.
+            const naturalWidth = graphic.viewBox.baseVal.width;
+            graphic.style.minWidth = `${Math.min(naturalWidth, 620)}px`;
+            graphic.style.background = color('--surface');
+          }
+          let link = figure.querySelector<HTMLAnchorElement>('.diagram-open');
+          if (!link) {
+            link = document.createElement('a');
+            link.className = 'diagram-open';
+            link.textContent = 'Open full-size diagram';
+            link.target = '_blank';
+            link.rel = 'noopener';
+            figure.append(link);
+          }
+          const previousUrl = objectUrls.get(figure);
+          const fullSvg = graphic?.cloneNode(true) as SVGSVGElement | undefined;
+          if (fullSvg) {
+            fullSvg.style.minWidth = '';
+            fullSvg.style.maxWidth = 'none';
+            fullSvg.setAttribute('width', String(fullSvg.viewBox.baseVal.width));
+            fullSvg.setAttribute('height', String(fullSvg.viewBox.baseVal.height));
+          }
+          const url = URL.createObjectURL(new Blob([fullSvg?.outerHTML ?? svg], { type: 'image/svg+xml' }));
+          link.href = url;
+          objectUrls.set(figure, url);
+          if (previousUrl) URL.revokeObjectURL(previousUrl);
+          figure.dataset.rendered = 'true';
+        } catch (error) {
+          // The authored text description remains available if rendering fails.
+          console.error(`Could not render diagram ${figure.dataset.diagram}`, error);
+        }
+      }
+      rendering = false;
+      if (rerender) { rerender = false; await renderDiagrams(); }
+    }
+
+    await renderDiagrams();
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', renderDiagrams);
+    window.addEventListener('pagehide', (event) => {
+      if (!event.persisted) objectUrls.forEach((url) => URL.revokeObjectURL(url));
+    });
+  }
+</script>

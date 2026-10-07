@@ -1,0 +1,111 @@
+---
+import Base from '../layouts/Base.astro';
+import { PROJECTS, SITE, pageUrl } from '../data/site';
+---
+<Base title={SITE.name}>
+  <main class="wrap">
+    <section class="hero">
+      <div class="label">Hi, I'm Tee · {SITE.role}</div>
+      <h1>I build AI systems and help shape <em>the business they serve.</em></h1>
+      <p class="lede">I'm Tee, an engineer and father of two based in Bangkok. At Chemical Express, I build software and AI systems, work with the people using them and help make decisions about the business. I'm involved in everything from writing code to developing partnerships.</p>
+      <p class="lede">This is where I write about that work and the life around it. You'll find the details behind the systems I've built, along with stories about studying in New Zealand, running a café and changing plans as my family grew.</p>
+      <p class="intro-links"><a href="/work/">Explore my work</a> · <a href="/story/">Read my story</a></p>
+      <ul class="facts">
+        <li><b>1M+</b><span>products in the catalogue behind the work</span></li>
+        <li><b>9</b><span>models in the sales recommendation platform</span></li>
+        <li><b>6</b><span>people hired, managed and trained</span></li>
+      </ul>
+    </section>
+
+    <section class="block" aria-labelledby="work-h">
+      <div class="label">Work</div>
+      <h2 id="work-h">Where the work fits together</h2>
+      <p class="sub">At Chemical Express, a customer order can involve several suppliers, deliveries and sets of documents before anyone gets paid. I started by connecting the systems behind that work. Later came recommendation models and AI to help with quotations, all relying on the same information about products, customers and orders.</p>
+      <div class="projects">
+        {PROJECTS.slice(0, 3).map((p) => {
+          const live = p.pages.filter((x) => x.status !== 'planned').length;
+          return (
+            <a class="proj-card" href={pageUrl(p.id, '')}>
+              <span class="sym">{p.sym}</span>
+              <span class="pt">{p.title}</span>
+              <span class="pd">{p.oneLiner}</span>
+              <span class="pc">{live > 1 ? `${live} pages to explore` : p.pages.length > 1 ? 'Overview · more coming' : 'Overview'}</span>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="results-h">
+      <div class="label">Reported project results</div>
+      <h2 id="results-h">What changed for the people doing the work</h2>
+      <div class="habits">
+        <div><h3><a href="/work/quoting-ai/">Quotations in 15–30 minutes</a></h3><p>QT supports 17 people handling 6,000–10,000 product lines a month. CS now accepts over 98% of suggested products without changes, with every quotation still reviewed.</p></div>
+        <div><h3><a href="/work/sales-models/">Recommendations across 3,000 accounts</a></h3><p>The nine-model platform supports decisions about customer follow-up, products and pricing. Project reporting recorded a 15% reactivation uplift and a 20% reduction in churn.</p></div>
+        <div><h3><a href="/work/operations/">Over 100 hours of manual work removed each week</a></h3><p>The integration work connected processes around legacy ERPs without APIs. Reported stock discrepancies fell to 0.1% as the operational records and workflows became more dependable.</p></div>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="read-h">
+      <div class="label">Choose a closer look</div>
+      <h2 id="read-h">A closer look at the decisions behind the work</h2>
+      <p class="sub">Some of the most useful lessons came when the work needed to change direction. These articles connect those decisions with the technical details behind them: what I learned from people using the systems, how I approach a release, and how I would recover when something fails.</p>
+      <div class="habits">
+        <div><h3><a href="/work/quoting-ai/rollout/">Why I made QT smaller before growing it again</a></h3><p>Wrong product matches made the first release extra work for CS. I pulled it back, released product search on its own, and expanded as the results improved.</p></div>
+        <div><h3><a href="/work/quoting-ai/orchestration/">When the customer changes the request halfway through</a></h3><p>A reply can change the pack size after pricing has already started. Saved state, thread links and human decisions keep that change connected to the quotation.</p></div>
+        <div><h3><a href="/work/sales-models/mlops/">The model improved. Should we release it?</a></h3><p>A better test score is a useful start. Before putting a model in front of salespeople, I want to understand who it helps, where it gets worse, and how we would recover.</p></div>
+        <div><h3><a href="/work/operations/system-design/">The goods are ready. Why is the order still stuck?</a></h3><p>What happens when sales, the warehouse and finance are looking at different parts of the same order.</p></div>
+        <div><h3><a href="/work/operations/date-picker/">It started with a date picker</a></h3><p>A small request in our billing and delivery tools led to a conversation about the underlying data, holidays and what other workflows would need.</p></div>
+        <div><h3><a href="/work/sales-models/adoption/">The salesperson who ignored the list</a></h3><p>A story about a recommendation that looks reasonable until someone explains what is happening with the customer.</p></div>
+        <div><h3><a href="/work/quoting-ai/evaluations/">Knowing whether the next change actually helps</a></h3><p>A 200-chain product dataset checks changes before rollout. Production corrections show what reviewers keep, and help identify suggestions that need closer attention.</p></div>
+        <div><h3><a href="/work/sales-models/feature-pipelines/">What did the model actually know?</a></h3><p>An order happened on Monday, but the platform did not learn about it until Wednesday. That small distinction changes how Tuesday's recommendation should be tested.</p></div>
+      </div>
+    </section>
+
+    <section class="block" aria-labelledby="public-h">
+      <div class="label">Public project</div>
+      <h2 id="public-h"><a href="/work/envsearch/">EnvSearch: answers you can trace back to the page</a></h2>
+      <p class="sub">Much of my day-to-day work sits inside a business. EnvSearch gives you a public example to explore: English and Thai questions over environmental regulations, answers with page-level citations, and an evaluation set that checks retrieval, citations and refusals.</p>
+      <p><a href="/work/envsearch/">Read about the project</a> · <a href="https://github.com/chatchawan90/e2e-rag-demo">Browse the code</a></p>
+    </section>
+
+    <section class="block" aria-labelledby="story-h">
+      <div class="label">My story</div>
+      <h2 id="story-h">Before all this, I was eighteen in Auckland</h2>
+      <p class="story-excerpt">My mum came with me to New Zealand. We spent the first few days in a hotel on Queen Street, looking for somewhere for me to live. I remember being cold, the enormous food portions and carrying a ten-kilogram bag of rice home on the bus.</p>
+      <p class="story-excerpt">Over the next several years, I studied engineering, worked on industrial sites and bought a café. I eventually came back to Thailand with plans to study in London. Life went in a different direction, and there's quite a bit to tell between then and now.</p>
+      <p><a href="/story/">Read the story so far</a> · <a href="/about/">A little about me today</a></p>
+    </section>
+
+    <section class="block cta">
+      <p>I'm open to conversations about engineering roles, consulting and working together. <a href="/about/#contact">Get in touch</a>.</p>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .hero { padding-block: clamp(40px, 7vw, 84px) 40px; display: grid; gap: 22px; }
+  .hero h1 { font-size: clamp(36px, 6.2vw, 66px); line-height: 1.02; font-weight: 800; margin: 0; max-width: 16ch; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .lede { font-size: clamp(18px, 2.2vw, 21px); max-width: 62ch; margin: 0; }
+  .intro-links { margin: 0; }
+  .story-excerpt { max-width: 64ch; margin: 0 0 6px; }
+  .facts { display: flex; flex-wrap: wrap; gap: 14px 40px; list-style: none; margin: 8px 0 0; padding: 0; }
+  .facts li { display: grid; gap: 2px; }
+  .facts b { font: 700 28px/1.1 var(--f-display); font-variant-numeric: tabular-nums; }
+  .facts span { font-size: 14px; color: var(--muted); max-width: 24ch; line-height: 1.35; }
+  .block { border-top: 1px solid var(--line); padding-block: 48px; display: grid; gap: 10px; }
+  .block h2 { font-size: clamp(26px, 3.4vw, 36px); margin: 0; }
+  .sub { color: var(--muted); margin: 0 0 14px; max-width: 64ch; }
+  .projects { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+  .proj-card { display: grid; gap: 8px; align-content: start; padding: 20px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; text-decoration: none; color: var(--ink); transition: border-color .15s, transform .15s; }
+  .proj-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .proj-card .sym { justify-self: start; }
+  .pt { font: 700 19px/1.25 var(--f-display); margin-top: 6px; }
+  .pd { font-size: 15.5px; line-height: 1.5; color: var(--muted); }
+  .pc { font: 600 12px var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin-top: 4px; }
+  .habits { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px 32px; margin-top: 10px; }
+  .habits h3 { font-size: 19px; margin: 0 0 6px; }
+  .habits p { margin: 0; color: var(--muted); font-size: 16px; }
+  .cta p { font: 600 20px/1.4 var(--f-display); margin: 0; }
+</style>

@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+---
+<Base title="About" description="I'm Tee, an engineer and father of two based in Bangkok. I work across AI, operations and the business at Chemical Express.">
+  <main class="wrap">
+    <div class="grid">
+      <div class="text">
+        <div class="label">About</div>
+        <h1>I'm Tee. It's good to meet you.</h1>
+        <p>My full name is Chatchawan Lakkhananukun. I'm an engineer, a father of two, and someone who has usually had a business idea on the go alongside whatever else I was doing. These days I'm based in Bangkok, working with AI, data and the everyday operations of a chemical and life-science distributor.</p>
+        <p>I moved to New Zealand at eighteen and spent much of my early adult life there. I studied mechatronics, worked in machinery safety and co-owned a café while holding down my engineering job. Eventually I came back to Thailand, where family life and work took me in a direction I hadn't planned.</p>
+
+        <h2>What I do now</h2>
+        <p>I'm the Lead AI Engineer at Chemical Express. Since joining in 2019, I've built our technology, data and marketing capabilities and hired and trained a team of six. My work covers the software itself, the people using it and the business decisions around it. I also take part in partnership meetings, develop relationships and close partnership agreements.</p>
+        <p>The engineering started with connecting our ERP and CRM and building tools for purchasing, delivery and billing. It grew into sales recommendation models and AI agents that help prepare quotations. For those projects, apart from the collaborative OCR work, I handled the conversations with the teams, the design, the coding and the testing.</p>
+        <p>Working across those areas has given me a good understanding of how the business fits together. That's often what people come to me for: thinking through a problem, seeing what else it affects and helping decide how to move forward. You can follow those decisions in <a href="/work/">the work stories</a>, including the technical details behind them.</p>
+
+        <h2>A little more about my life</h2>
+        <p>I once planned to move to London to study financial engineering. Instead, I returned to Thailand, became a father and later completed a mostly online master's in Business Analytics at Carnegie Mellon while working. My wife and our son came with me to the US for graduation. After all those lectures and team meetings on a screen, I finally got to meet my classmates in person.</p>
+        <p>There are quite a few turns like that in my life. I've started businesses, had ideas that went nowhere and changed plans when family needed me. I'm writing about those experiences here as well, including the parts I'm still trying to work out.</p>
+        <p><a href="/story/">Read my story, starting with arriving in Auckland at eighteen.</a></p>
+      </div>
+      <dl class="bg">
+        <div><dt>Lead AI Engineer · Technology, Data &amp; AI</dt><dd>Chemical Express, Samut Prakan · February 2019–present</dd></div>
+        <div><dt>Recruitment Consultant · Digital &amp; Technology</dt><dd>Michael Page, Bangkok · September 2018–February 2019</dd></div>
+        <div><dt>Machinery Safety Consultant</dt><dd>Pilz Australia &amp; New Zealand · November 2014–June 2018</dd></div>
+        <div><dt>Co-owner · My Coffee Break Cafe</dt><dd>Auckland · August 2015–December 2017</dd></div>
+        <div><dt>Earlier engineering experience</dt><dd>Refining NZ · 2013–2014<br />NSTDA · 2012–2013</dd></div>
+        <div><dt>MS, Business Analytics</dt><dd>Carnegie Mellon University, Tepper School of Business · 2022</dd></div>
+        <div><dt>BE (Hons), Mechatronics</dt><dd>University of Auckland · awarded 2015<br />Second Class Honours, First Division</dd></div>
+        <div><dt>Cibus Prize</dt><dd>Best fourth-year project: a paediatric rehabilitation prototype for children with cerebral palsy.</dd></div>
+        <div><dt>Languages</dt><dd>Thai · native<br />English · full professional proficiency<br />Chinese · professional working proficiency</dd></div>
+      </dl>
+    </div>
+
+    <section id="contact" class="contact">
+      <div class="label">Contact</div>
+      <h2>Say hi</h2>
+      <p>I'm open to talking about engineering roles, consulting and work that brings technology and business together. I enjoy understanding a problem with the people involved and having a practical part in solving it.</p>
+      <p>I'm based in Bangkok and open to local or remote opportunities.</p>
+      <p class="email"><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+      <p><a href={SITE.linkedin}>LinkedIn</a> · <a href={SITE.github}>GitHub</a></p>
+    </section>
+  </main>
+</Base>
+
+<style>
+  .grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 48px; padding-block: 48px; }
+  .text { display: grid; gap: 14px; align-content: start; }
+  h1 { font-size: clamp(34px, 5vw, 52px); margin: 0 0 6px; font-weight: 800; }
+  .text p { margin: 0; max-width: 62ch; }
+  .text h2 { font-size: clamp(24px, 3vw, 29px); margin: 20px 0 0; }
+  .bg { margin: 0; display: grid; gap: 14px; align-content: start; padding-top: 30px; }
+  .bg div { display: grid; gap: 2px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .bg dt { font: 700 16px var(--f-display); }
+  .bg dd { margin: 0; font-size: 15px; color: var(--muted); }
+  .contact { border-top: 1px solid var(--line); padding-block: 40px; display: grid; gap: 10px; }
+  .contact h2 { font-size: 32px; margin: 0; }
+  .contact p { margin: 0; }
+  .email { font: 600 clamp(18px, 3vw, 26px) var(--f-display); word-break: break-all; user-select: all; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } .bg { padding-top: 0; } }
+</style>
