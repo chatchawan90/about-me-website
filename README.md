@@ -27,8 +27,20 @@ starting another preview on a different port.
 
 The user wants hosting outside ChatGPT. Do not create or deploy a ChatGPT Site.
 Build with `npm run build`; the portable static website is generated in `dist/`.
-When a hosting provider and domain are chosen, set `site` in `astro.config.mjs`
-to that domain. The GitHub origin remains unchanged.
+Cloudflare Pages is the selected host. Use these settings when connecting the
+existing `chatchawan90/about-me-website` GitHub repository:
+
+- Project name: `tee-lakkhananukun`
+- Production branch: `main`
+- Framework preset: Astro
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Root directory: repository root
+
+The configured site URL is `https://tee-lakkhananukun.pages.dev`. Once connected,
+pushing to `main` triggers a build and publication. Local edits alone do not
+update the hosted website. If a custom domain is added later, update `site` in
+`astro.config.mjs` to match it. No server runtime or paid add-on is required.
 
 The earlier ChatGPT hosting association has been removed from this checkout.
 That local cleanup does not delete the previously published private hosted copy.
