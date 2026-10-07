@@ -65,17 +65,17 @@ export const DIAGRAMS: Record<string, { title: string; description: string; sour
     title: "Recovery checks the current work",
     description: "Failed tools retry with exponential backoff and jitter, then enter a dead-letter queue. A worker checks current request state before replaying relevant work.",
     source: `flowchart TB
-  call["Tool call"] --> result{"Succeeded?"}
+  toolCall["Tool call"] --> result{"Succeeded?"}
   result -->|Yes| continue["Continue the workflow"]
   result -->|No| retry["Retry with backoff and jitter"]
   retry --> exhausted{"Attempts exhausted?"}
-  exhausted -->|No| call
+  exhausted -->|No| toolCall
   exhausted -->|Yes| dead["Dead-letter queue"]
   dead --> status["CS sees request waiting on failed tool"]
   dead --> worker["Worker picks up failed work"]
   worker --> db["Check current PostgreSQL request and newer work"]
   db --> valid{"Still relevant and automated?"}
-  valid -->|Yes| call
+  valid -->|Yes| toolCall
   valid -->|Redundant| discard["Discard obsolete queued work"]
   valid -->|Manual| stop["Keep agent work stopped"]`,
   },
