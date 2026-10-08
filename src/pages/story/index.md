@@ -26,6 +26,7 @@ I didn't have a car. Buying groceries could mean carrying a ten-kilogram bag of 
 <li><a href="#work-a-cafe-and-early-mornings">Work, a café and early mornings</a></li>
 <li><a href="#the-move-that-didnt-happen">The move that didn't happen</a></li>
 <li><a href="#work-study-and-a-young-family">Work, study and a young family</a></li>
+<li><a href="#being-their-dad">Being their dad</a></li>
 <li><a href="#still-working-out-what-comes-next">Still working out what comes next</a></li>
 </ol>
 </nav>
@@ -161,6 +162,25 @@ We visited Pittsburgh, Washington and New York. We went to museums, experienced 
 <figcaption><span>New York. A view across Manhattan.</span><small>Place photo, 2019: <a href="https://commons.wikimedia.org/wiki/File:West_side_of_Manhattan_from_Hudson_Commons_(95103p).jpg">Rhododendrites, via Wikimedia Commons</a>. <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</small></figcaption>
 </figure>
 </div>
+
+## Being their dad
+
+<figure class="story-photo family-photo">
+<img src="/images/story/my-two-hugging.webp" alt="My daughter hugging her brother as they sit together on a wooden bench." width="863" height="1896" loading="lazy" decoding="async" />
+<figcaption>My two, sharing a hug.</figcaption>
+</figure>
+
+My son loves drawing, books and letters. Thai or English, he's interested in both, and he's particularly good at jigsaw puzzles. I love seeing the things that catch his attention and discovering what he can do.
+
+Some things take more time. Teaching him something new, especially maths, can be difficult, and we sometimes need to go over it many times. I keep trying because I believe we can find a way that makes sense to him. I'm learning to be patient with the process and give him the time he needs.
+
+He's also making real progress with his speech. Seeing him express more of himself means a lot to me. I couldn't be prouder of him.
+
+My daughter has quite a personality of her own. At three, she loves singing out loud and will happily strike a pose when I try to take her picture. There's a little sass in her already, and she seems to understand so much of what people say around her.
+
+Letters, though, don't interest her much at all. Her brother loves them, while she would much rather be singing.
+
+I'm still learning how to be the dad each of them needs. They have different interests, different strengths and their own ways of learning. Getting to know those differences is a part of my life I want to remember here, alongside everything I build and do at work.
 
 ## Still working out what comes next
 

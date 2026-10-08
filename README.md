@@ -275,6 +275,14 @@ The photographs retain their original framing; the US images use Wikimedia's
 1280-pixel thumbnails. Retain all credits when replacing or moving images.
 The later images lazy-load, and the city pair stacks vertically below 600px.
 
+The later "Being their dad" chapter uses the user's account of his children's
+interests and personalities, alongside his supplied photograph of them hugging.
+`public/images/story/my-two-hugging.webp` is a compressed copy with the full frame
+preserved and EXIF/XMP metadata removed. The original stays outside the repository.
+The family photograph belongs to the user, unlike the separately credited public
+place photographs. Keep the children's section grounded in his recollections;
+do not add diagnoses, locations or other personal details.
+
 ## Design refresh, 2026-10-07
 
 The user approved a more personal, selective presentation and supplied the navy
