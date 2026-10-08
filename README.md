@@ -45,6 +45,23 @@ update the hosted website. If a custom domain is added later, update `site` in
 The earlier ChatGPT hosting association has been removed from this checkout.
 That local cleanup does not delete the previously published private hosted copy.
 
+## Search discovery
+
+Astro generates `/sitemap-index.xml` and `/sitemap-0.xml` from published routes on
+every build. `/robots.txt` permits crawling and advertises the sitemap. A real
+`404.html` prevents Cloudflare Pages from serving the homepage for missing URLs.
+The shared layout supplies canonical URLs, unique page metadata, social previews
+and Person/WebSite/WebPage structured data. The About page uses ProfilePage.
+Keep Google and Bing ownership-verification tags in place after verification;
+they are public ownership identifiers, not API secrets.
+
+Validate after edits with `npm run build && python3 scripts/check-seo.py`.
+The sitemap intentionally excludes the noindex 404 page. Do not invent article
+dates or set every page's last-modified date to the build time. When moving to a
+custom domain, update Astro's `site`, the validation script's base URL, search
+properties and sitemap submissions, and set up redirects from the old address.
+Submission and ownership verification do not guarantee indexing or rankings.
+
 ## Editorial structure and sources
 
 The homepage features three connected Chemical Express projects: QT AI Agents,
