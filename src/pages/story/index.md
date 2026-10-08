@@ -152,6 +152,11 @@ When graduation came, my wife and our son travelled with me to the US. I finally
 
 We visited Pittsburgh, Washington and New York. We went to museums, experienced how different the cities felt and drove between states. Driving there was a little frightening and a lot of fun. The trip gave us time together after a very demanding few years.
 
+<figure id="new-york-family" class="story-photo">
+<img src="/images/story/new-york-family.webp" alt="The three of us at a tower observation deck in New York, with the city lights behind us." width="1600" height="1200" loading="lazy" decoding="async" />
+<figcaption>The three of us in New York, looking out over the city after graduation.</figcaption>
+</figure>
+
 <div id="us-trip-photos" class="story-photo-pair" aria-label="Places from the US trip">
 <figure class="story-photo">
 <img src="/images/story/washington-national-mall.jpg" alt="The National Mall in Washington, DC, viewed from the Capitol towards the Washington Monument." width="1280" height="853" loading="lazy" decoding="async" />

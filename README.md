@@ -275,6 +275,11 @@ The photographs retain their original framing; the US images use Wikimedia's
 1280-pixel thumbnails. Retain all credits when replacing or moving images.
 The later images lazy-load, and the city pair stacks vertically below 600px.
 
+The user's own New York tower photograph appears after the US travel paragraph
+as `public/images/story/new-york-family.webp`. It preserves the full frame of
+the supplied HEIC, converted to a 1600-pixel WebP without EXIF/XMP metadata.
+The caption does not name a particular tower because that was not confirmed.
+
 The later "Being their dad" chapter uses the user's account of his children's
 interests and personalities, alongside his supplied photograph of them hugging.
 `public/images/story/my-two-hugging.webp` is a compressed copy with the full frame
