@@ -33,9 +33,9 @@ When a worker picks up failed work again, it checks PostgreSQL for changes and n
 
 ## Separating processing time from waiting time
 
-Email ingestion runs every five minutes. After pickup, preparing a draft usually takes 2–4 minutes. With CS review and the surrounding work, the quotation process is typically around 15–30 minutes.
+Email ingestion runs every five minutes. After pickup, preparing a draft usually takes **2–4 minutes**. The median active preparation time for a revision cycle is **15–30 minutes**, including machine processing and active CS review. Before QT, active preparation could take **up to 3 hours**.
 
-Those are different clocks. A customer can be waiting before processing begins, and a completed draft can wait for a reviewer. These ranges describe what we usually see. We have not measured them as a guarantee for a specified percentage of requests.
+The customer can still experience a longer wait. A request may sit in the queue, need clarification about a billing name or payment terms, or wait for a supplier or an available reviewer. Those idle periods are excluded from the active preparation figure. A subsequent change starts another revision cycle, so the median does not describe the full elapsed time from the first email to the final quotation.
 
 That distinction also helps decide what to improve. Making one model call faster will do little for a request waiting on a supplier or a human decision. I want the next change to address the stage where time is actually being spent.
 

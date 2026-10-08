@@ -14,11 +14,13 @@ I built QT AI Agents to help with that work. I handled the conversations with th
 
 ## What changed in everyday work
 
-The workflow supports 10 salespeople, one product specialist and six customer service staff, whom I'll refer to as CS. It handles roughly **6,000–10,000 requested product lines a month**. Those are individual product lines, so one customer email can contribute several.
+The workflow supports 10 salespeople, one product specialist and six customer service staff, whom I'll refer to as CS. It handles **2,000+ quotation requests a month**, covering roughly **6,000–10,000 requested product lines**. A request can include several products, so those are two different measures of the workload.
 
 Today, **CS accepts over 98% of suggested products without changing them**, based on production approval logs. Every quotation still goes through human review. This product acceptance rate tells me how often the suggestion survives that review unchanged.
 
-Once processing starts, a draft is typically ready for review in **2–4 minutes**. With review and the surrounding work, the quotation process usually takes **15–30 minutes**, compared with the previous range of three hours to two days. The old range included waiting between people and tasks; it was not three hours of continuous typing.
+Active quote preparation used to take **up to 3 hours**. With QT, the median is now **15–30 minutes per revision cycle**, counting machine processing and the time CS actively spends reviewing the result. Waiting for a customer to clarify requirements, a supplier to reply or someone to pick up the review is excluded from that figure.
+
+Within that cycle, the draft itself is typically ready in **2–4 minutes** after processing starts. CS checks the products, prices and customer requirements, makes any corrections, and can approve the prepared quotation with one click. If the customer changes the request, the next revision goes through its own preparation and review cycle.
 
 ## Understanding what the customer actually needs
 

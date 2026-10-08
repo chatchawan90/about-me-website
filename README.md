@@ -115,8 +115,8 @@ Private PDFs and extracted text are not copied into website assets.
 | Leadership | Both new PDFs: hired/trained six engineers, analysts and marketers; zero attrition over seven years. This is distinct from the 17 people supported by QT |
 | Commercial responsibility | User clarification on 2026-10-02: participates in partnership meetings, develops relationships and closes partnership deals while remaining hands-on technically. Homepage and About reflect this broader business responsibility; retain the supplied Lead AI Engineer title |
 | QT scope | October 2026 interview supersedes the PDF shorthand: every quotation has CS approval; current golden evaluation is mainly product matching. Broader workflow evaluation, calibration and model judging remain planned extensions |
-| QT volume | Latest direct account: 6,000–10,000 product lines monthly. RFQ counts in earlier documents differ; do not convert product lines to RFQs except in explicitly hypothetical cost calculations |
-| QT users and outcome | Both new PDFs: 10 sales + 1 product specialist + 6 customer service = 17 people. Time to quotation: three hours–two days → 15–30 minutes. This replaces the older median two days → three hours wording; do not label the new ranges as medians or active handling time |
+| QT volume | User's October 8 clarification: 2,000+ quotation requests monthly, alongside the previously confirmed 6,000–10,000 product lines. These are separate units; do not derive one from the other as an observed average |
+| QT users and outcome | 10 sales + 1 product specialist + 6 customer service = 17 people. User's October 8 clarification supersedes earlier wording: up to 3 hours of active quote preparation → a median of 15–30 minutes per revision cycle, including machine processing and active human review, excluding idle delays. The former two-day figure described operational elapsed time and must not be used as the baseline for this comparison |
 | QT adoption | Latest interview: pulled back full quotation automation because wrong product matches caused duplicate work; released standalone product search, logged feedback from then, improved data and rules and later restored the wider workflow. No invented dialogue or numerical relaunch threshold |
 | Sales scope and results | Both new PDFs: nine models across 3,000 accounts and 1M+ sellable SKUs; LambdaMART ranking; reported 15% reactivation uplift and 20% churn reduction |
 | ML reliability | New CV: point-in-time features, as-of joins, embargo gaps, shadow release, PSI drift and cost-based thresholds. Individual incidents, registry choices and detailed release/recovery flows remain reference design |
@@ -216,7 +216,11 @@ The direct interview takes precedence over earlier CV and handbook summaries:
 - Every quotation is reviewed. Acceptance is not autonomous-quote coverage,
   an independently adjudicated accuracy score, or a causal ROI experiment.
 - Email polling runs every five minutes. Draft preparation is typically 2–4
-  minutes after pickup; the wider workflow takes 15–30 minutes with review.
+  minutes after pickup. October 8 clarification: the median active preparation
+  time is 15–30 minutes per revision cycle, including machine processing and
+  active human review, compared with up to 3 hours of active preparation before
+  QT. Exclude idle periods awaiting customers, suppliers or reviewers; do not
+  present this as elapsed turnaround or total time across multiple revisions.
 - The current golden dataset contains 200 RFQ email chains and final quotations
   linked to SOs, primarily for product matching. Broader component/workflow tests,
   calibration, shadow releases and atomic revision checks must not become claims
