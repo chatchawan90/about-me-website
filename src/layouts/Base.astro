@@ -1,12 +1,27 @@
 ---
 import '../styles/global.css';
 import { SITE } from '../data/site';
+import { getImage } from 'astro:assets';
+import portrait from '../assets/tee-portrait.png';
 
-interface Props { title: string; description?: string }
-const { title, description = 'Stories from the life and work of Chatchawan (Tee) Lakkhananukun, an engineer and father of two based in Bangkok.' } = Astro.props;
+interface Props { title: string; description?: string; noindex?: boolean }
+const { title, description = 'Chatchawan (Tee) Lakkhananukun, an AI engineer in Bangkok. Explore AI agents, machine learning systems, business decisions and stories from my life.', noindex = false } = Astro.props;
 const path = Astro.url.pathname;
 const isActive = (p: string) => (p === '/' ? path === '/' : path.startsWith(p));
-const fullTitle = title === SITE.name ? title : `${title} · ${SITE.name}`;
+const fullTitle = title === SITE.name ? 'Chatchawan (Tee) Lakkhananukun · AI Engineer' : `${title} · ${SITE.name}`;
+const canonical = new URL(path, Astro.site!);
+const sharePortrait = await getImage({ src: portrait, width: 600, format: 'jpeg' });
+const imageUrl = new URL(sharePortrait.src, Astro.site!).href;
+const personId = new URL('/#person', Astro.site!).href;
+const websiteId = new URL('/#website', Astro.site!).href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Person', '@id': personId, name: 'Chatchawan Lakkhananukun', alternateName: SITE.name, url: new URL('/about/', Astro.site!).href, image: imageUrl, jobTitle: SITE.role, sameAs: [SITE.linkedin, SITE.github] },
+    { '@type': 'WebSite', '@id': websiteId, url: Astro.site!.href, name: SITE.fullName, inLanguage: 'en', publisher: { '@id': personId } },
+    { '@type': path === '/about/' ? 'ProfilePage' : 'WebPage', '@id': canonical.href + '#webpage', url: canonical.href, name: fullTitle, description, inLanguage: 'en', isPartOf: { '@id': websiteId }, author: { '@id': personId }, ...(path === '/about/' ? { mainEntity: { '@id': personId } } : {}) },
+  ],
+};
 ---
 <!doctype html>
 <html lang="en" data-theme="light">
@@ -15,6 +30,22 @@ const fullTitle = title === SITE.name ? title : `${title} · ${SITE.name}`;
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
+    <meta name="author" content={SITE.fullName} />
+    <meta name="google-site-verification" content="0yHKUTKbJIUiTJf7sWXRF8qRo2eygc0NDvl6fR6VM4s" />
+    {noindex ? <meta name="robots" content="noindex, follow" /> : <link rel="canonical" href={canonical} />}
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.fullName} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:alt" content="Chatchawan (Tee) Lakkhananukun" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    {!noindex && <script type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />}
     <script is:inline>
       try {
         document.documentElement.dataset.theme = localStorage.getItem('tee-appearance') === 'dark' ? 'dark' : 'light';

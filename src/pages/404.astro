@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Page not found" description="This page could not be found. Explore Tee's work and personal story." noindex>
+  <main class="wrap missing-page">
+    <p class="label">404</p>
+    <h1>I couldn't find that page.</h1>
+    <p>The link may have changed. You can <a href="/">start at the homepage</a> or <a href="/work/">explore my work</a>.</p>
+  </main>
+</Base>
+<style>
+  .missing-page { padding-block: 80px; min-height: 55vh; }
+  h1 { font-family: var(--f-display); }
+</style>
